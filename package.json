@@ -2,8 +2,8 @@
   "name": "react-likes-contest",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://argdev.ru/proj/test/react-likes-contest",
   "main": "index.js",
+  "homepage": "https://argdev.ru/proj/test/react-likes-contest/",
   "scripts": {
     "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
     "build": "react-scripts build",

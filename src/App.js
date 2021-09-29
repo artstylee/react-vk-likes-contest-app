@@ -113,7 +113,7 @@ const App = () => {
       operation6 = operation5.slice(i, i + 1);
       operation7.push(operation6);
     }
-    operation8 = operation7.map((el) => el * 100);
+    operation8 = operation7.map((el) => el * 50);
     setArr8(operation8);
   }, [winner]);
 
@@ -133,6 +133,8 @@ const App = () => {
                 <FormItem bottom="Post ID">
                   <Input type="number" disabled value={postId} />
                 </FormItem>
+              </FormLayoutGroup>
+              <FormLayoutGroup>
                 <FormItem>
                   <Button
                     mode="secondary"
@@ -146,23 +148,23 @@ const App = () => {
                     Load users
                   </Button>
                 </FormItem>
+                <FormItem>
+                  <Button
+                    size="l"
+                    stretched
+                    onClick={countWinner}
+                    disabled={!disabled}
+                  >
+                    Shuffle
+                  </Button>
+                </FormItem>
               </FormLayoutGroup>
             </FormLayout>
             <FormLayoutGroup mode="horizontal">
               <FormItem>
-                <Button
-                  size="l"
-                  stretched
-                  onClick={countWinner}
-                  disabled={!disabled}
-                >
-                  Shuffle
-                </Button>
-              </FormItem>
-              <FormItem>
                 <Link target="_blank" href={`https://vk.com/id${winner}`}>
                   <Button size="l" stretched mode="commerce">
-                    Winner profile
+                    Winner
                   </Button>
                 </Link>
               </FormItem>
@@ -179,15 +181,14 @@ const App = () => {
                 </Button>
               </FormItem>
             </FormLayoutGroup>
-            <FormLayoutGroup mode="horizontal">
-              <SlotMachine marginTop={arr8} />
-            </FormLayoutGroup>
+
+            <SlotMachine marginTop={arr8} />
           </Panel>
 
           <Panel id="panel2">
             <FormLayoutGroup mode="horizontal">
               <Button
-                style={{ margin: "20px" }}
+                style={{ marginLeft: "20px" }}
                 size="l"
                 onClick={() => {
                   setActivePanel("panel1");
@@ -195,7 +196,7 @@ const App = () => {
               >
                 Back
               </Button>
-              </FormLayoutGroup>
+            </FormLayoutGroup>
             <List>
               {users.map((el) => {
                 return (

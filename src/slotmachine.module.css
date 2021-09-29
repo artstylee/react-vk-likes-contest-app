@@ -10,22 +10,23 @@
 .slot p {
     display: flex;
     align-items: center;
-    margin: 15px 0 15px 0;
-    font-size: 70px;
+    font-size: 50px;
     line-height: 100%;
     user-select: none;
     font-family: 'Gemunu Libre', sans-serif;
+    margin: 0
 }
 
 
 .slotWrapper {
   display: flex;
   overflow: hidden;
-  height: 100px;
+  height: 50px;
 }
 
 .slotWrapper2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
 }
