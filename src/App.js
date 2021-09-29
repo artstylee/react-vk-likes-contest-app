@@ -11,6 +11,7 @@ import {
   FormLayoutGroup,
   Button,
   Card,
+  FormLayout,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import { Icon20User } from "@vkontakte/icons";
@@ -118,14 +119,14 @@ const App = () => {
   return (
     <AdaptivityProvider>
       <AppRoot>
-        <Group>
+        <FormLayout>
           <FormItem top="Ссылка на пост">
             <Input
               type="url"
               onChange={controlUrl}
               value={url}
               placeholder="https://vk.com/id465705?w=wall465705_4615"
-              pattern="https://.*"
+              pattern="https://vk.com/"
               size="30"
               required
             />
@@ -138,18 +139,21 @@ const App = () => {
               <Input type="number" disabled value={postId} />
             </FormItem>
             <FormItem>
-            <Button
-              mode="secondary"
-              size="l"
-              style={{ marginRight: 5 }}
-              stretched
-              disabled={disabled}
-              onClick={getUsersWhoLikedPost}
-            >
-              Fetch
-            </Button>
+              <Button
+                mode="secondary"
+                type="submit"
+                size="l"
+                style={{ marginRight: 5 }}
+                stretched
+                disabled={disabled}
+                onClick={getUsersWhoLikedPost}
+              >
+                Load Users
+              </Button>
             </FormItem>
           </FormLayoutGroup>
+        </FormLayout>
+        <Group>
           <FormLayoutGroup mode="horizontal">
             <Button size="l" stretched onClick={countWinner}>
               Count Winner
