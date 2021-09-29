@@ -1,0 +1,27 @@
+.slot {
+  display: flex;
+  flex-direction: column;
+  transition: all 1s ease-in-out
+}
+
+.slot p {
+    display: flex;
+    align-items: center;
+    margin: 3px 0 3px 0;
+    font-size: 24px;
+    line-height: 100%;
+    user-select: none;
+}
+
+
+.slotWrapper {
+  display: flex;
+  overflow: hidden;
+  height: 30px;
+}
+
+.slotWrapper2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

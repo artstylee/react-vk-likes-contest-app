@@ -10,19 +10,26 @@ import {
   Input,
   FormLayoutGroup,
   Button,
+  Card,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import { Icon20User } from "@vkontakte/icons";
+import SlotMachine from "./slotmachine";
 
 const App = () => {
   const [userId, setUserId] = useState("");
   const [postId, setPostId] = useState("");
   const [users, setUsers] = useState([]);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("https://vk.com/id465705?w=wall465705_4615");
   const [winner, setWinner] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [arr8, setArr8] = useState([]);
   let operation2;
   let operation3;
+  let operation5;
+  let operation6;
+  let operation7 = [];
+  let operation8 = [];
 
   function controlUrl(e) {
     if (e.currentTarget.value !== url) {
@@ -73,10 +80,40 @@ const App = () => {
   }
 
   function countWinner() {
-    let result = Math.floor(Math.random() * users.length );
-    console.log(result)
+    let result = Math.floor(Math.random() * users.length);
     setWinner(users[result]);
   }
+
+  useEffect(() => {
+    let operation4 = winner;
+    if (operation4 === 0) {
+      operation5 = "00000000" + operation4;
+    } else if (operation4 < 10) {
+      operation5 = "00000000" + operation4;
+    } else if (operation4 < 100) {
+      operation5 = "0000000" + operation4;
+    } else if (operation4 < 1000) {
+      operation5 = "000000" + operation4;
+    } else if (operation4 < 10000) {
+      operation5 = "00000" + operation4;
+    } else if (operation4 < 100000) {
+      operation5 = "0000" + operation4;
+    } else if (operation4 < 1000000) {
+      operation5 = "000" + operation4;
+    } else if (operation4 < 10000000) {
+      operation5 = "00" + operation4;
+    } else if (operation4 < 100000000) {
+      operation5 = "0" + operation4;
+    } else {
+      operation5 = operation4.toString();
+    }
+    for (let i = 0; i < 9; i++) {
+      operation6 = operation5.slice(i, i + 1);
+      operation7.push(operation6);
+    }
+    operation8 = operation7.map((el) => el * 30);
+    setArr8(operation8);
+  }, [winner]);
 
   return (
     <AdaptivityProvider>
@@ -95,18 +132,12 @@ const App = () => {
           </FormItem>
           <FormLayoutGroup mode="horizontal">
             <FormItem bottom="User ID">
-              <Input
-                type="number"
-                disabled
-                value={userId}
-                after={<Icon20User aria-hidden="true" />}
-              />
+              <Input type="number" disabled value={userId} />
             </FormItem>
             <FormItem bottom="Post ID">
               <Input type="number" disabled value={postId} />
             </FormItem>
-          </FormLayoutGroup>
-          <FormLayoutGroup mode="horizontal">
+            <FormItem>
             <Button
               mode="secondary"
               size="l"
@@ -117,12 +148,16 @@ const App = () => {
             >
               Fetch
             </Button>
+            </FormItem>
+          </FormLayoutGroup>
+          <FormLayoutGroup mode="horizontal">
             <Button size="l" stretched onClick={countWinner}>
               Count Winner
             </Button>
           </FormLayoutGroup>
           <FormLayoutGroup mode="horizontal">
-          <Input type="number" disabled value={winner} />
+            <Input type="number" disabled value={winner} />
+            <SlotMachine marginArr={arr8} />
           </FormLayoutGroup>
         </Group>
       </AppRoot>
