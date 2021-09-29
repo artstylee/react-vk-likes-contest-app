@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import bridge from "@vkontakte/vk-bridge";
 import {
   View,
-  ScreenSpinner,
   AdaptivityProvider,
   AppRoot,
-  Group,
   FormItem,
   Input,
   FormLayoutGroup,
   Button,
-  Card,
   FormLayout,
+  Panel,
+  Cell,
+  Link,
+  List,
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
-import { Icon20User } from "@vkontakte/icons";
 import SlotMachine from "./slotmachine";
 
 const App = () => {
@@ -25,8 +25,10 @@ const App = () => {
   const [winner, setWinner] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [arr8, setArr8] = useState([]);
+  const [activePanel, setActivePanel] = useState("panel1");
   let operation2;
   let operation3;
+  let operation4 = winner;
   let operation5;
   let operation6;
   let operation7 = [];
@@ -86,7 +88,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    let operation4 = winner;
     if (operation4 === 0) {
       operation5 = "00000000" + operation4;
     } else if (operation4 < 10) {
@@ -112,58 +113,107 @@ const App = () => {
       operation6 = operation5.slice(i, i + 1);
       operation7.push(operation6);
     }
-    operation8 = operation7.map((el) => el * 30);
+    operation8 = operation7.map((el) => el * 100);
     setArr8(operation8);
   }, [winner]);
 
   return (
     <AdaptivityProvider>
       <AppRoot>
-        <FormLayout>
-          <FormItem top="Ссылка на пост">
-            <Input
-              type="url"
-              onChange={controlUrl}
-              value={url}
-              placeholder="https://vk.com/id465705?w=wall465705_4615"
-              pattern="https://vk.com/"
-              size="30"
-              required
-            />
-          </FormItem>
-          <FormLayoutGroup mode="horizontal">
-            <FormItem bottom="User ID">
-              <Input type="number" disabled value={userId} />
-            </FormItem>
-            <FormItem bottom="Post ID">
-              <Input type="number" disabled value={postId} />
-            </FormItem>
-            <FormItem>
+        <View activePanel={activePanel}>
+          <Panel id="panel1">
+            <FormLayout>
+              <FormItem top="Ссылка на пост">
+                <Input onChange={controlUrl} value={url} size="30" required />
+              </FormItem>
+              <FormLayoutGroup mode="horizontal">
+                <FormItem bottom="User ID">
+                  <Input type="number" disabled value={userId} />
+                </FormItem>
+                <FormItem bottom="Post ID">
+                  <Input type="number" disabled value={postId} />
+                </FormItem>
+                <FormItem>
+                  <Button
+                    mode="secondary"
+                    type="submit"
+                    size="l"
+                    style={{ marginRight: 5 }}
+                    stretched
+                    disabled={disabled}
+                    onClick={getUsersWhoLikedPost}
+                  >
+                    Load users
+                  </Button>
+                </FormItem>
+              </FormLayoutGroup>
+            </FormLayout>
+            <FormLayoutGroup mode="horizontal">
+              <FormItem>
+                <Button
+                  size="l"
+                  stretched
+                  onClick={countWinner}
+                  disabled={!disabled}
+                >
+                  Shuffle
+                </Button>
+              </FormItem>
+              <FormItem>
+                <Link target="_blank" href={`https://vk.com/id${winner}`}>
+                  <Button size="l" stretched mode="commerce">
+                    Winner profile
+                  </Button>
+                </Link>
+              </FormItem>
+              <FormItem>
+                <Button
+                  size="l"
+                  onClick={() => {
+                    setActivePanel("panel2");
+                  }}
+                  stretched
+                  mode="secondary"
+                >
+                  All profiles
+                </Button>
+              </FormItem>
+            </FormLayoutGroup>
+            <FormLayoutGroup mode="horizontal">
+              <SlotMachine marginTop={arr8} />
+            </FormLayoutGroup>
+          </Panel>
+
+          <Panel id="panel2">
+            <FormLayoutGroup mode="horizontal">
               <Button
-                mode="secondary"
-                type="submit"
+                style={{ margin: "20px" }}
                 size="l"
-                style={{ marginRight: 5 }}
-                stretched
-                disabled={disabled}
-                onClick={getUsersWhoLikedPost}
+                onClick={() => {
+                  setActivePanel("panel1");
+                }}
               >
-                Load Users
+                Back
               </Button>
-            </FormItem>
-          </FormLayoutGroup>
-        </FormLayout>
-        <Group>
-          <FormLayoutGroup mode="horizontal">
-            <Button size="l" stretched onClick={countWinner}>
-              Count Winner
-            </Button>
-          </FormLayoutGroup>
-          <FormLayoutGroup mode="horizontal">
-            <Input type="number" disabled value={winner} />
-            <SlotMachine marginArr={arr8} />
-          </FormLayoutGroup>
-        </Group>
+              </FormLayoutGroup>
+            <List>
+              {users.map((el) => {
+                return (
+                  <Link target="_blank" href={`https://vk.com/id${el}`}>
+                    <Cell
+                      style={{
+                        margin: "20px",
+                        borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+                      }}
+                    >
+                      {el}
+                    </Cell>
+                  </Link>
+                );
+              })}
+            </List>
+          </Panel>
+        </View>
       </AppRoot>
     </AdaptivityProvider>
   );

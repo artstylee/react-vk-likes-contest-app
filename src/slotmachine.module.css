@@ -1,23 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@800&display=swap');
+
 .slot {
   display: flex;
   flex-direction: column;
-  transition: all 1s ease-in-out
+  align-items: center;
+  transition: all 1s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .slot p {
     display: flex;
     align-items: center;
-    margin: 3px 0 3px 0;
-    font-size: 24px;
+    margin: 15px 0 15px 0;
+    font-size: 70px;
     line-height: 100%;
     user-select: none;
+    font-family: 'Gemunu Libre', sans-serif;
 }
 
 
 .slotWrapper {
   display: flex;
   overflow: hidden;
-  height: 30px;
+  height: 100px;
 }
 
 .slotWrapper2 {
